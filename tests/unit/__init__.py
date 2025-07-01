@@ -1,0 +1,1 @@
+"""Unit tests for cap rate analyzer.""" 

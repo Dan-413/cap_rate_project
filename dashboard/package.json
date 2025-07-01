@@ -1,0 +1,42 @@
+{
+  "name": "cap-rate-dashboard",
+  "version": "1.0.0",
+  "description": "Commercial Real Estate Cap Rate Analysis Dashboard",
+  "type": "module",
+  "main": "js/app.js",
+  "scripts": {
+    "start": "python3 ../scripts/serve_dashboard.py",
+    "dev": "python3 -m http.server 8000",
+    "test": "node --test tests/unit/*.test.js",
+    "test:watch": "node --test --watch tests/unit/*.test.js",
+    "test:coverage": "c8 node --test tests/unit/*.test.js",
+    "lint": "eslint js/**/*.js",
+    "lint:fix": "eslint js/**/*.js --fix",
+    "build": "echo 'No build step required for static dashboard'",
+    "validate": "npm run lint && npm run test"
+  },
+  "keywords": [
+    "commercial-real-estate",
+    "cap-rate",
+    "dashboard",
+    "credit-analysis",
+    "finance"
+  ],
+  "author": "LiveOak Bank",
+  "license": "MIT",
+  "devDependencies": {
+    "c8": "^8.0.0",
+    "eslint": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liveoak/cap-rate-dashboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/liveoak/cap-rate-dashboard/issues"
+  },
+  "homepage": "https://github.com/liveoak/cap-rate-dashboard#readme"
+} 
