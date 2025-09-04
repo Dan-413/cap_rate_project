@@ -1,0 +1,82 @@
+2025-09-04 14:16:36,461 - INFO - Found 9 PDF files to process
+2025-09-04 14:16:36,463 - INFO - Processing: CBRE-US-Cap-Rate-Survey-H2-2022.pdf
+2025-09-04 14:16:36,559 - INFO -   Parsed 283 records
+2025-09-04 14:16:36,559 - INFO -   Report period: 2022-H2
+2025-09-04 14:16:36,560 - INFO - Processing: D5.U.S._H2_2024_Cap_Rate_Surve.pdf
+2025-09-04 14:16:36,624 - INFO -   Parsed 223 records
+2025-09-04 14:16:36,624 - INFO -   Report period: 2024-H2
+2025-09-04 14:16:36,624 - INFO - Processing: cbre-us-cap-rate-survey-h1-2022.pdf
+2025-09-04 14:16:36,709 - INFO -   Parsed 239 records
+2025-09-04 14:16:36,709 - INFO -   Report period: 2022-H1
+2025-09-04 14:16:36,709 - INFO - Processing: cbre-us-cap-rate-survey-h2-2021.pdf
+2025-09-04 14:16:36,789 - INFO -   Parsed 213 records
+2025-09-04 14:16:36,789 - INFO -   Report period: 2021-H2
+2025-09-04 14:16:36,789 - INFO - Processing: h1-2023-cap-rate-survey.pdf
+2025-09-04 14:16:36,855 - INFO -   Parsed 267 records
+2025-09-04 14:16:36,855 - INFO -   Report period: 2023-H1
+2025-09-04 14:16:36,855 - INFO - Processing: h1-2024-cap-rate-survey.pdf
+2025-09-04 14:16:36,922 - INFO -   Parsed 241 records
+2025-09-04 14:16:36,922 - INFO -   Report period: 2024-H1
+2025-09-04 14:16:36,923 - INFO - Processing: h1-2025-cap-rate-survey.pdf
+2025-09-04 14:16:36,990 - INFO -   Parsed 225 records
+2025-09-04 14:16:36,990 - INFO -   Report period: 2025-H1
+2025-09-04 14:16:36,990 - INFO - Processing: h2-2023-cap-rate-survey.pdf
+2025-09-04 14:16:37,055 - INFO -   Parsed 262 records
+2025-09-04 14:16:37,055 - INFO -   Report period: 2023-H2
+2025-09-04 14:16:37,055 - INFO - Processing: united-states-cap-rate-survey-h1-2021.pdf
+2025-09-04 14:16:37,143 - INFO -   Parsed 227 records
+2025-09-04 14:16:37,143 - INFO -   Report period: 2021-H1
+2025-09-04 14:16:37,143 - INFO - Successfully processed 9/9 files
+2025-09-04 14:16:37,143 - INFO - Total records parsed: 2180
+2025-09-04 14:16:37,143 - INFO - Combining and processing all data...
+2025-09-04 14:16:37,165 - INFO - Updating dashboard files...
+2025-09-04 14:16:37,166 - ERROR - Unexpected error: [Errno 2] No such file or directory: '/Users/daniel.taylor/Library/CloudStorage/OneDrive-LiveOak/Documents/Projects/Dan trash/cap_rate_project/dashboard/historical_cap_rates.csv'
+Traceback (most recent call last):
+  File "/Users/daniel.taylor/Library/CloudStorage/OneDrive-LiveOak/Documents/Projects/Dan trash/cap_rate_project/scripts/update_dashboard.py", line 135, in main
+    shutil.copy2(output_csv, dashboard_dir / "historical_cap_rates.csv")
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.4/Frameworks/Python.framework/Versions/3.13/lib/python3.13/shutil.py", line 468, in copy2
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.4/Frameworks/Python.framework/Versions/3.13/lib/python3.13/shutil.py", line 262, in copyfile
+    with open(dst, 'wb') as fdst:
+         ~~~~^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/daniel.taylor/Library/CloudStorage/OneDrive-LiveOak/Documents/Projects/Dan trash/cap_rate_project/dashboard/historical_cap_rates.csv'
+2025-09-04 14:16:55,071 - INFO - Found 9 PDF files to process
+2025-09-04 14:16:55,071 - INFO - Processing: CBRE-US-Cap-Rate-Survey-H2-2022.pdf
+2025-09-04 14:16:55,164 - INFO -   Parsed 283 records
+2025-09-04 14:16:55,164 - INFO -   Report period: 2022-H2
+2025-09-04 14:16:55,164 - INFO - Processing: D5.U.S._H2_2024_Cap_Rate_Surve.pdf
+2025-09-04 14:16:55,228 - INFO -   Parsed 223 records
+2025-09-04 14:16:55,228 - INFO -   Report period: 2024-H2
+2025-09-04 14:16:55,228 - INFO - Processing: cbre-us-cap-rate-survey-h1-2022.pdf
+2025-09-04 14:16:55,311 - INFO -   Parsed 239 records
+2025-09-04 14:16:55,312 - INFO -   Report period: 2022-H1
+2025-09-04 14:16:55,312 - INFO - Processing: cbre-us-cap-rate-survey-h2-2021.pdf
+2025-09-04 14:16:55,389 - INFO -   Parsed 213 records
+2025-09-04 14:16:55,389 - INFO -   Report period: 2021-H2
+2025-09-04 14:16:55,389 - INFO - Processing: h1-2023-cap-rate-survey.pdf
+2025-09-04 14:16:55,454 - INFO -   Parsed 267 records
+2025-09-04 14:16:55,454 - INFO -   Report period: 2023-H1
+2025-09-04 14:16:55,454 - INFO - Processing: h1-2024-cap-rate-survey.pdf
+2025-09-04 14:16:55,521 - INFO -   Parsed 241 records
+2025-09-04 14:16:55,521 - INFO -   Report period: 2024-H1
+2025-09-04 14:16:55,521 - INFO - Processing: h1-2025-cap-rate-survey.pdf
+2025-09-04 14:16:55,585 - INFO -   Parsed 225 records
+2025-09-04 14:16:55,585 - INFO -   Report period: 2025-H1
+2025-09-04 14:16:55,585 - INFO - Processing: h2-2023-cap-rate-survey.pdf
+2025-09-04 14:16:55,649 - INFO -   Parsed 262 records
+2025-09-04 14:16:55,650 - INFO -   Report period: 2023-H2
+2025-09-04 14:16:55,650 - INFO - Processing: united-states-cap-rate-survey-h1-2021.pdf
+2025-09-04 14:16:55,733 - INFO -   Parsed 227 records
+2025-09-04 14:16:55,733 - INFO -   Report period: 2021-H1
+2025-09-04 14:16:55,733 - INFO - Successfully processed 9/9 files
+2025-09-04 14:16:55,733 - INFO - Total records parsed: 2180
+2025-09-04 14:16:55,733 - INFO - Combining and processing all data...
+2025-09-04 14:16:55,755 - INFO - Updating dashboard files...
+2025-09-04 14:16:55,756 - INFO - Dashboard data files updated
+2025-09-04 14:16:55,758 - INFO - Dashboard update completed successfully!
+2025-09-04 14:16:55,758 - INFO - Total records in dataset: 1581
+2025-09-04 14:16:55,758 - INFO - Files processed: 9
+2025-09-04 14:16:55,758 - INFO - Time periods covered: 9
+2025-09-04 14:16:55,758 - INFO - Dashboard ready at: /Users/daniel.taylor/Library/CloudStorage/OneDrive-LiveOak/Documents/Projects/Dan trash/cap_rate_project/docs/index.html

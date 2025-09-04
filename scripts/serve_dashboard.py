@@ -31,7 +31,7 @@ def main():
     """Start the dashboard server."""
     # Change to dashboard directory
     project_root = Path(__file__).parent.parent
-    dashboard_dir = project_root / "dashboard"
+    dashboard_dir = project_root / "docs"
     
     if not dashboard_dir.exists():
         print(f"❌ Dashboard directory not found: {dashboard_dir}")

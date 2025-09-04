@@ -53,7 +53,7 @@ def main():
         project_root = Path(__file__).parent.parent
         reports_dir = project_root / args.reports_dir
         temp_output_dir = project_root / "temp_output"
-        dashboard_dir = project_root / "dashboard"
+        dashboard_dir = project_root / "docs"
         
         # Validate reports directory
         if not reports_dir.exists():
