@@ -56,7 +56,7 @@
             
             <button id="resetFilters">Reset Filters</button>
             <button id="exportData">Export Data</button>
-            <button id="toggleCalculator">Show Deal Calculator</button>
+            <button id="toggleCalculator">Show Market Validation</button>
             <button id="marketAnalysis">Market Analysis</button>
         </section>
 
@@ -104,50 +104,12 @@
             </div>
         </section>
 
-        <!-- Deal Calculator (Positioned prominently after stats) -->
+        <!-- Market Validation (Positioned prominently after stats) -->
         <section id="dealCalculator" class="chart-container" style="display: none;">
-            <h2 class="chart-title">Deal Calculator & Credit Analysis</h2>
-            
-            <!-- Calculator Mode Toggle -->
-            <div class="calculator-mode-toggle">
-                <label class="toggle-label">
-                    <input type="radio" name="calculatorMode" value="standard" checked> Standard Calculation
-                </label>
-                <label class="toggle-label">
-                    <input type="radio" name="calculatorMode" value="validation"> Market Validation
-                </label>
-            </div>
-
-            <!-- Standard Calculator Fields -->
-            <div id="standardCalculatorFields" class="credit-metrics">
-                <div class="metric-card">
-                    <div class="metric-title">Property Value ($)</div>
-                    <input type="number" id="propertyValue" placeholder="Enter property value" min="0" step="1000">
-                </div>
-                <div class="metric-card">
-                    <div class="metric-title">Annual NOI ($)</div>
-                    <input type="number" id="annualNOI" placeholder="Enter annual NOI" min="0" step="1000">
-                </div>
-                <div class="metric-card">
-                    <div class="metric-title">Loan Amount ($)</div>
-                    <input type="number" id="loanAmount" placeholder="Enter loan amount" min="0" step="1000">
-                </div>
-                <div class="metric-card">
-                    <div class="metric-title">Interest Rate (%)</div>
-                    <input type="number" id="interestRate" placeholder="Enter interest rate" min="0" max="20" step="0.01">
-                </div>
-                <div class="metric-card">
-                    <div class="metric-title">Amortization (Months)</div>
-                    <input type="number" id="amortizationMonths" placeholder="Enter months (e.g., 360)" min="1" max="600" step="1">
-                </div>
-                <div class="metric-card">
-                    <div class="metric-title">SOFR Rate (%)</div>
-                    <input type="number" id="sofrRate" placeholder="Enter SOFR rate" min="0" max="10" step="0.01">
-                </div>
-            </div>
+            <h2 class="chart-title">Market Validation</h2>
 
             <!-- Market Validation Fields -->
-            <div id="marketValidationFields" class="credit-metrics" style="display: none;">
+            <div id="marketValidationFields" class="credit-metrics">
                 <div class="metric-card">
                     <div class="metric-title">Annual NOI ($)</div>
                     <input type="number" id="validationNOI" placeholder="Enter annual NOI" min="0" step="1000">
@@ -183,39 +145,7 @@
 
             <!-- Action Buttons -->
             <div class="calculator-actions">
-                <button id="calculateDeal">Calculate Deal & Credit Analysis</button>
-                <button id="performMarketValidation" style="display: none;">Perform Market Validation</button>
-            </div>
-            
-            <!-- Standard Deal Results -->
-            <div id="dealResults" style="display: none;">
-                <h3>Standard Calculation Results</h3>
-                <div class="credit-metrics">
-                    <div class="metric-card risk-indicator">
-                        <div class="metric-title">Cap Rate</div>
-                        <div class="metric-value" id="resultCapRate">-</div>
-                    </div>
-                    <div class="metric-card risk-indicator">
-                        <div class="metric-title">LTV Ratio</div>
-                        <div class="metric-value" id="resultLTV">-</div>
-                    </div>
-                    <div class="metric-card risk-indicator">
-                        <div class="metric-title">DSCR</div>
-                        <div class="metric-value" id="resultDSCR">-</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-title">Annual Debt Service</div>
-                        <div class="metric-value" id="resultDebtService">-</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-title">Spread over SOFR (bps)</div>
-                        <div class="metric-value" id="resultSpread">-</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-title">Credit Decision</div>
-                        <div class="metric-value" id="creditDecision">-</div>
-                    </div>
-                </div>
+                <button id="performMarketValidation">Perform Market Validation</button>
             </div>
 
             <!-- Market Validation Results -->

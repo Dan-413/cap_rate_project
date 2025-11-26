@@ -41,12 +41,13 @@ def main():
     print(f"📁 Serving from: {dashboard_dir}")
     
     # Start server
-    port = 8080
+    port = int(os.environ.get("PORT", 8080))
+    host = "0.0.0.0"  # Bind to all interfaces for Databricks
     try:
-        with socketserver.TCPServer(("", port), DashboardHandler) as httpd:
-            print(f"🚀 Dashboard server running at http://localhost:{port}")
-            print("📊 Dashboard available at http://localhost:8080/index.html")
-            print("🔗 Data API available at http://localhost:8080/data/data.json")
+        with socketserver.TCPServer((host, port), DashboardHandler) as httpd:
+            print(f"🚀 Dashboard server running at http://{host}:{port}")
+            print(f"📊 Dashboard available at http://{host}:{port}/index.html")
+            print(f"🔗 Data API available at http://{host}:{port}/data/data.json")
             print("⏹️  Press Ctrl+C to stop")
             httpd.serve_forever()
     except KeyboardInterrupt:

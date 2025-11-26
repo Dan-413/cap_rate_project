@@ -326,11 +326,19 @@ class DataService {
 
     /**
      * Get detailed market analysis with trends and comparisons
+     * @param {string} market - Market to analyze
+     * @param {string} sector - Optional sector filter
+     * @param {string} period - Optional time period filter
      */
-    getMarketAnalysis(market) {
+    getMarketAnalysis(market, sector = null, period = null) {
         if (!market) return null;
         
-        const marketData = this.filterData({ market, validMarketOnly: true });
+        // Build filter object
+        const filters = { market, validMarketOnly: true };
+        if (sector) filters.sector = sector;
+        if (period) filters.period = period;
+        
+        const marketData = this.filterData(filters);
         if (marketData.length === 0) return null;
         
         const periods = this.getPeriods();
@@ -338,54 +346,93 @@ class DataService {
         
         const analysis = {
             market: market,
+            sector: sector || 'All Sectors',
+            period: period || 'All Periods',
             totalRecords: marketData.length,
             sectors: {},
             trends: [],
             summary: {}
         };
         
-        // Analyze by sector
-        sectors.forEach(sector => {
-            const sectorData = marketData.filter(row => row.Sector === sector);
-            if (sectorData.length > 0) {
-                const rates = sectorData
-                    .map(row => row.h1_avg || row.h2_avg)
-                    .filter(rate => rate !== null);
-                
-                if (rates.length > 0) {
-                    const avgRate = rates.reduce((sum, rate) => sum + rate, 0) / rates.length;
-                    const minRate = Math.min(...rates);
-                    const maxRate = Math.max(...rates);
+        // Analyze by sector (only if no specific sector filter is applied)
+        if (!sector) {
+            sectors.forEach(sectorName => {
+                const sectorData = marketData.filter(row => row.Sector === sectorName);
+                if (sectorData.length > 0) {
+                    const rates = sectorData
+                        .map(row => row.h1_avg || row.h2_avg)
+                        .filter(rate => rate !== null);
                     
-                    analysis.sectors[sector] = {
-                        avgRate: parseFloat(avgRate.toFixed(2)),
-                        minRate: parseFloat(minRate.toFixed(2)),
-                        maxRate: parseFloat(maxRate.toFixed(2)),
-                        count: rates.length,
-                        spread: parseFloat((maxRate - minRate).toFixed(2))
-                    };
+                    if (rates.length > 0) {
+                        const avgRate = rates.reduce((sum, rate) => sum + rate, 0) / rates.length;
+                        const minRate = Math.min(...rates);
+                        const maxRate = Math.max(...rates);
+                        
+                        analysis.sectors[sectorName] = {
+                            avgRate: parseFloat(avgRate.toFixed(2)),
+                            minRate: parseFloat(minRate.toFixed(2)),
+                            maxRate: parseFloat(maxRate.toFixed(2)),
+                            count: rates.length,
+                            spread: parseFloat((maxRate - minRate).toFixed(2))
+                        };
+                    }
                 }
-            }
-        });
-        
-        // Calculate trends over time
-        periods.forEach(period => {
-            const periodData = marketData.filter(row => row.period_key === period);
-            if (periodData.length > 0) {
-                const rates = periodData
-                    .map(row => row.h1_avg || row.h2_avg)
-                    .filter(rate => rate !== null);
+            });
+        } else {
+            // If sector is filtered, show just that sector's data
+            const rates = marketData
+                .map(row => row.h1_avg || row.h2_avg)
+                .filter(rate => rate !== null);
+            
+            if (rates.length > 0) {
+                const avgRate = rates.reduce((sum, rate) => sum + rate, 0) / rates.length;
+                const minRate = Math.min(...rates);
+                const maxRate = Math.max(...rates);
                 
-                if (rates.length > 0) {
-                    const avgRate = rates.reduce((sum, rate) => sum + rate, 0) / rates.length;
-                    analysis.trends.push({
-                        period: period,
-                        avgRate: parseFloat(avgRate.toFixed(2)),
-                        count: rates.length
-                    });
-                }
+                analysis.sectors[sector] = {
+                    avgRate: parseFloat(avgRate.toFixed(2)),
+                    minRate: parseFloat(minRate.toFixed(2)),
+                    maxRate: parseFloat(maxRate.toFixed(2)),
+                    count: rates.length,
+                    spread: parseFloat((maxRate - minRate).toFixed(2))
+                };
             }
-        });
+        }
+        
+        // Calculate trends over time (only if no specific period filter is applied)
+        if (!period) {
+            periods.forEach(periodKey => {
+                const periodData = marketData.filter(row => row.period_key === periodKey);
+                if (periodData.length > 0) {
+                    const rates = periodData
+                        .map(row => row.h1_avg || row.h2_avg)
+                        .filter(rate => rate !== null);
+                    
+                    if (rates.length > 0) {
+                        const avgRate = rates.reduce((sum, rate) => sum + rate, 0) / rates.length;
+                        analysis.trends.push({
+                            period: periodKey,
+                            avgRate: parseFloat(avgRate.toFixed(2)),
+                            count: rates.length
+                        });
+                    }
+                }
+            });
+        } else {
+            // If period is filtered, show just that period's data
+            const rates = marketData
+                .map(row => row.h1_avg || row.h2_avg)
+                .filter(rate => rate !== null);
+            
+            if (rates.length > 0) {
+                const avgRate = rates.reduce((sum, rate) => sum + rate, 0) / rates.length;
+                analysis.trends.push({
+                    period: period,
+                    avgRate: parseFloat(avgRate.toFixed(2)),
+                    count: rates.length
+                });
+            }
+        }
         
         // Calculate summary statistics
         const allRates = marketData

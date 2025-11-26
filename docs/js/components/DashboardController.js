@@ -363,10 +363,10 @@ class DashboardController {
         if (calculator && button) {
             if (calculator.style.display === 'none') {
                 calculator.style.display = 'block';
-                button.textContent = 'Hide Deal Calculator';
+                button.textContent = 'Hide Market Validation';
             } else {
                 calculator.style.display = 'none';
-                button.textContent = 'Show Deal Calculator';
+                button.textContent = 'Show Market Validation';
             }
         }
     }
@@ -680,9 +680,13 @@ class DashboardController {
             return;
         }
         
-        const analysis = this.dataService.getMarketAnalysis(market);
+        // Pass all current filters to market analysis
+        const sector = this.currentFilters.sector || null;
+        const period = this.currentFilters.period || null;
+        
+        const analysis = this.dataService.getMarketAnalysis(market, sector, period);
         if (!analysis) {
-            alert('No data available for the selected market.');
+            alert('No data available for the selected filters.');
             return;
         }
         
@@ -702,8 +706,54 @@ class DashboardController {
             document.querySelector('.charts-grid').appendChild(analysisSection);
         }
         
+        // Build filter display
+        const filterText = [
+            `Market: ${analysis.market}`,
+            analysis.sector !== 'All Sectors' ? `Sector: ${analysis.sector}` : null,
+            analysis.period !== 'All Periods' ? `Period: ${this.formatPeriodLabel(analysis.period)}` : null
+        ].filter(Boolean).join(' | ');
+        
+        // Build sector breakdown HTML
+        const sectorBreakdownHtml = Object.keys(analysis.sectors).length > 0 ? `
+            <div class="sector-breakdown">
+                <h3>${analysis.sector !== 'All Sectors' ? 'Sector Details' : 'Sector Breakdown'}</h3>
+                <div class="credit-metrics">
+                    ${Object.entries(analysis.sectors).map(([sector, data]) => `
+                        <div class="metric-card">
+                            <div class="metric-title">${sector}</div>
+                            <div class="metric-value">${data.avgRate}%</div>
+                            <div class="metric-status">Range: ${data.minRate}% - ${data.maxRate}%</div>
+                            <div class="metric-status">Count: ${data.count}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        ` : '';
+        
+        // Build trends HTML
+        const trendsHtml = analysis.trends.length > 0 && analysis.period === 'All Periods' ? `
+            <div class="sector-breakdown">
+                <h3>Trends Over Time</h3>
+                <div class="credit-metrics">
+                    ${analysis.trends.sort((a, b) => b.period.localeCompare(a.period)).slice(0, 5).map(trend => `
+                        <div class="metric-card">
+                            <div class="metric-title">${this.formatPeriodLabel(trend.period)}</div>
+                            <div class="metric-value">${trend.avgRate}%</div>
+                            <div class="metric-status">Records: ${trend.count}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        ` : '';
+        
         const html = `
-            <h2 class="chart-title">Market Analysis: ${analysis.market}</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2 class="chart-title">Market Analysis</h2>
+                <button onclick="document.getElementById('marketAnalysisSection').remove()" style="padding: 0.5rem 1rem; cursor: pointer;">Close</button>
+            </div>
+            <div style="margin-bottom: 1rem; padding: 0.5rem; background: rgba(255,255,255,0.1); border-radius: 4px;">
+                <strong>Filters:</strong> ${filterText}
+            </div>
             <div class="credit-metrics">
                 <div class="metric-card">
                     <div class="metric-title">Total Records</div>
@@ -722,18 +772,8 @@ class DashboardController {
                     <div class="metric-value">${analysis.summary.overallMin}% - ${analysis.summary.overallMax}%</div>
                 </div>
             </div>
-            <div class="sector-breakdown">
-                <h3>Sector Breakdown</h3>
-                <div class="credit-metrics">
-                    ${Object.entries(analysis.sectors).map(([sector, data]) => `
-                        <div class="metric-card">
-                            <div class="metric-title">${sector}</div>
-                            <div class="metric-value">${data.avgRate}%</div>
-                            <div class="metric-status">Range: ${data.minRate}% - ${data.maxRate}%</div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
+            ${sectorBreakdownHtml}
+            ${trendsHtml}
         `;
         
         analysisSection.innerHTML = html;

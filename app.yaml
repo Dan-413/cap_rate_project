@@ -1,0 +1,13 @@
+# app.yaml configuration for Cap Rate Analyzer Dashboard
+# Configured for Databricks Apps deployment
+
+env:
+  - name: PORT
+    value: "8000"
+
+# Install Python dependencies and start dashboard server
+command: ["sh", "-c", "pip install -e . && python scripts/serve_dashboard.py"] 
+ 
+
+
+ 
